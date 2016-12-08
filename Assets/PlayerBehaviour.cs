@@ -74,7 +74,7 @@ public class PlayerBehaviour : MonoBehaviour {
                 // o jį liesdami patektume į amžiną ciklą, vis stumdami jį iš netinkamo taško
 
                 // Patikriname ar susidūrimas su kamuoliu įvyktų anksčiau nei pasiektume reikiamą poziciją
-                var distToBall = enemyToBall.magnitude - ballRadius - enemyRadius; // Atstumas iki susidūrimo
+                var distToBall = enemyToBall.magnitude - ballRadius - enemyRadius - 1; // Atstumas iki susidūrimo
                 // Taip pat naudojame toleranciją dėl tų pačių priežasčių
                 if(Mathf.Abs(moveDirection.magnitude - distToBall) > TOL)
                 {
@@ -98,6 +98,11 @@ public class PlayerBehaviour : MonoBehaviour {
                 moveDirection.y,
                 0
             );
+
+            Vector3 pos = rb.transform.position;
+            pos.x = Mathf.Clamp(pos.x, -27.45f, -2.09f);
+            pos.y = Mathf.Clamp(pos.y, 1.81f, 19.37f);
+            rb.transform.position = pos;
 
             // TODO: kliūčių išvengimas, judėjimas link vartų kai kamuolio/DI judėjimas yra ribojamas
         }
